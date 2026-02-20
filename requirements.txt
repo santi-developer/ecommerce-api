@@ -11,7 +11,7 @@ click-plugins==1.1.1.2
 click-repl==0.3.0
 cloudinary==1.44.1
 colorama==0.4.6
-Django==6.0.2
+Django==5.2.11
 django-cloudinary-storage==0.3.0
 django-environ==0.13.0
 django-filter==25.2
@@ -48,3 +48,4 @@ uritemplate==4.2.0
 urllib3==2.6.3
 vine==5.1.0
 wcwidth==0.6.0
+psycopg2-binary==2.9.9
