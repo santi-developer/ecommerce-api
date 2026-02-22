@@ -21,6 +21,7 @@ class RegisterSerializer (serializers.ModelSerializer):
         validated_data.pop('password2')
         user = User.objects.create_user(**validated_data)
         Profile.objects.create(user=user)
+        return user
 
 class UserSerializer(serializers.ModelSerializer):
 
