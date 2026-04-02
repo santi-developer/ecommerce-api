@@ -3,13 +3,13 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User, Profile
 
 
-# 🔹 Inline para que Profile aparezca dentro de User
+# Inline para que Profile aparezca dentro de User
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
 
 
-# 🔹 Admin personalizado del User
+# Admin personalizado del User
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     model = User
