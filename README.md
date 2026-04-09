@@ -19,7 +19,7 @@ API REST para ecommerce desarrollada con Django REST Framework.
 ## Instalación
 
 1. Clona el repositorio:
-git clone https://github.com/tu-usuario/ecommerce-api.git
+git clone https://github.com/santi-developer/ecommerce-api.git
 cd ecommerce-api
 
 2. Crea el archivo `.env` basado en `.env.example`:
