@@ -165,3 +165,6 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API para ecommerce desarrollada con Django REST Framework',
     'VERSION': '1.0.0',
 }
+
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
