@@ -27,6 +27,10 @@ class Product (models.Model):
     def __str__(self):
         return self.name
     
+    def in_stock(self):
+        return self.stock > 0
+    
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
