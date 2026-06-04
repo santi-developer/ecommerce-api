@@ -48,6 +48,7 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'cloudinary',
     'cloudinary_storage',
+    'corsheaders',
 ]
 
 LOCAL_APPS = [
@@ -61,12 +62,15 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',  # 👈 DEBE IR AQUÍ ARRIBA
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -165,6 +169,13 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API para ecommerce desarrollada con Django REST Framework',
     'VERSION': '1.0.0',
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+
+# Temporal para debug — NO usar en producción
+CORS_ALLOW_ALL_ORIGINS = True
 
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
