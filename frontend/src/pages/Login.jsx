@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from "react"
 import { useNavigate } from "react-router-dom"
 import "./Register.css"
-
+import { useAuth } from "../context/AuthContext"
 
 function Login() {
   // Lógica del componente (estados, variables, etc.)
@@ -12,6 +12,8 @@ function Login() {
   
     const [errors, setErrors] = useState({});
     const [globalError, setGlobalError] = useState("");
+
+    const { login } = useAuth();
   
     async function handleSubmit(e) {
     e.preventDefault();
@@ -33,8 +35,7 @@ function Login() {
         setGlobalError("Error del servidor, intenta más tarde");
       }
     } else {
-      localStorage.setItem("access", data.access);
-      localStorage.setItem("refresh", data.refresh);
+      login(data)
       setEmail("");
       setPassword("");
       setErrors({});
