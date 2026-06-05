@@ -65,9 +65,9 @@ function getFieldError(fieldErrors) {
   
 
   return (
-    <div className="register-container">
+    <div className="auth-container">
 
-        <form className="register-form" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit}>
             <h1>Registrarse</h1>
             {globalError && <p style={{ color: 'red' }}>{globalError}</p>}
             <div>
