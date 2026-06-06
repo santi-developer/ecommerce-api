@@ -3,7 +3,9 @@ import { createContext, useState, useContext } from "react"
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("access") // 👈 si hay token = true, si no = false
+);
 
   function login(tokens) {
     localStorage.setItem("access", tokens.access);
