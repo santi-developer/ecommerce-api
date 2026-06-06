@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import "./Home.css"
 
 function Home (){
 
     const [products, setProducts] = useState ([]);
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         fetch("http://localhost:8000/api/products/")
@@ -16,7 +19,7 @@ function Home (){
       <div className="home-container">
         <div className="products-grid">
          {products.map(product => (
-            <div key={product.id} className="product-card">
+            <div key={product.id} className="product-card" onClick={() => navigate(`/products/${product.slug}`)}>
               <div className="product-card-image">
                   {product.images.length > 0 && (
                     <img src={product.images[0].image} alt={product.name} />
