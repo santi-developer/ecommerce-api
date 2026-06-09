@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Navbar from'./components/Navbar'
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   
@@ -17,7 +18,11 @@ function App() {
         <Route path = "/register/" element = {<Register/>}/>
         <Route path = "/login/" element = {<Login/>}/>
         <Route path="/products/:slug" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        } />
       </Routes>
     </>
   )
