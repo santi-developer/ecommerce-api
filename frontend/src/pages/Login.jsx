@@ -3,6 +3,8 @@ import {useState} from "react"
 import { useNavigate } from "react-router-dom"
 import "./Register.css"
 import { useAuth } from "../context/AuthContext"
+import axios from 'axios'
+
 
 function Login() {
   // Lógica del componente (estados, variables, etc.)
@@ -18,30 +20,25 @@ function Login() {
     async function handleSubmit(e) {
     e.preventDefault();
   
-    const response = await fetch("http://localhost:8000/api/users/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email, password }),
-    });
-  
-    const data = await response.json();
-  
-     if (!response.ok) {
-      if (response.status === 400) {
-        setErrors(data);
-      } else if (response.status === 500) {
-        setGlobalError("Error del servidor, intenta más tarde");
-      }
-    } else {
-      login(data)
+    try {
+      const res = await axios.post("http://localhost:8000/api/users/login/",{
+        email,
+        password
+      });
+      login(res.data);
       setEmail("");
       setPassword("");
       setErrors({});
       navigate("/");
+
+    }catch(error){
+      if (error.response.status === 400){
+        setErrors(error.response.data);
+      }else if(error.response.status === 500){
+        setGlobalError("Error del servidor, intenta más tarde");
+      }
     }
-  }
+    }
   
   // Función que traduce el error de Django a tu mensaje
   function getFieldError(fieldErrors) {

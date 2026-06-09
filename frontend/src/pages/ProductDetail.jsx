@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import "./ProductDetail.css"
+import axiosInstance from "../utils/axiosInstance"
 
 function ProductDetail() {
     const { slug } = useParams()
@@ -10,9 +11,8 @@ function ProductDetail() {
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/products/${slug}/`)
-        .then(res => res.json())
-        .then(data => setProduct(data));
+        axiosInstance.get(`/api/products/${slug}/`)
+        .then(res => setProduct(res.data));
     }, [slug]);
 
     async function handleAddtoCart() {
@@ -21,16 +21,10 @@ function ProductDetail() {
             return;
         }
 
-        const response = await fetch("http://localhost:8000/api/orders/cart/add_item/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("access")}`
-            },
-            body: JSON.stringify({ product_id: product.id, quantity: 1 })
+        const response = await axiosInstance.post("/api/orders/cart/add_item/", {
+             product_id: product.id, 
+             quantity: 1 
         });
-
-        const data = await response.json();
         console.log(data);
     }
 

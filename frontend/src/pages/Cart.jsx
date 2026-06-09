@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import axiosInstance from "../utils/axiosInstance"
 import "./Cart.css"
 
 function Cart(){
@@ -6,13 +7,8 @@ function Cart(){
     const [cart, setCart] = useState(null);
 
     useEffect(()=>{
-        fetch("http://localhost:8000/api/orders/cart/", {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("access")}`
-            }
-        })
-        .then(res => res.json())
-        .then(data => setCart(data));
+         axiosInstance.get("/api/orders/cart/")
+        .then(res => setCart(res.data));
     }, []);
 
     if (!cart) return <p>Cargando...</p>

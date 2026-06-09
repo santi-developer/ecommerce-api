@@ -1,7 +1,7 @@
 import "./Register.css"
 import {useState} from "react"
 import { useNavigate } from "react-router-dom"
-
+import axios from "axios"
 
 function Register() {
 
@@ -17,32 +17,28 @@ function Register() {
   async function handleSubmit(e) {
   e.preventDefault();
 
-  const response = await fetch("http://localhost:8000/api/users/register/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, username, password, password2 }),
-  });
-
-  const data = await response.json();
-
-   if (!response.ok) {
-    if (response.status === 400) {
-      setErrors(data);
-    } else if (response.status === 500) {
-      setGlobalError("Error del servidor, intenta más tarde");
+  try {
+        const res = await axios.post("http://localhost:8000/api/users/register/",{
+          email,
+          password,
+          username,
+          password2
+        });
+        setEmail("");
+        setUsername("");
+        setPassword("");
+        setPassword2("");
+        setErrors({});
+        navigate("/login");
+  
+      }catch(error){
+        if (error.response.status === 400){
+          setErrors(error.response.data);
+        }else if(error.response.status === 500){
+          setGlobalError("Error del servidor, intenta más tarde");
+        }
+      }
     }
-  } else {
-    setEmail("");
-    setUsername("");
-    setPassword("");
-    setPassword2("");
-    setErrors({});
-    navigate("/login");
-  }
-}
-
 // Función que traduce el error de Django a tu mensaje
 function getFieldError(fieldErrors) {
   if (!fieldErrors) return null;

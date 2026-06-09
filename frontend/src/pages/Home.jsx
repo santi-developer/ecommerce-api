@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Home.css"
+import axiosInstance from "../utils/axiosInstance";
 
 function Home (){
 
@@ -9,9 +10,8 @@ function Home (){
 
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/products/")
-        .then(res => res.json())
-        .then(data => setProducts(data));
+        axiosInstance.get("/api/products/")
+        .then(res => setProducts(res.data))
     }, []);
 
     return (
