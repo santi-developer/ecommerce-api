@@ -20,6 +20,7 @@ axiosInstance.interceptors.response.use(
         const original = error.config;
 
         if (error.response.status === 401 && !original._retry) {
+            console.log("Token expirado, renovando...");
             original._retry = true;
 
             const refresh = localStorage.getItem("refresh");
