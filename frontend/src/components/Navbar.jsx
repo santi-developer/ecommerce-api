@@ -18,6 +18,12 @@ function Navbar(){
                     <span className="navbar-cart" onClick={()=>navigate("/cart")}>
                         🛒 Mi carrito
                     </span>
+                    <span className="navbar-cart" onClick={() => navigate("/orders")}>
+                        📦 Mis órdenes
+                    </span>
+                    <span className="navbar-cart" onClick={() => navigate("/profile")}>
+                        👤 Mi perfil
+                    </span>
                     <button onClick={logout}>Cerrar sesión</button>
                 </>
             ) : (
