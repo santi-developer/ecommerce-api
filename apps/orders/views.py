@@ -27,6 +27,13 @@ class CartViewSet(viewsets.ViewSet):
         cart = CartService.remove_item(request.user, product_id)
         return Response(CartSerializer(cart).data)
 
+    @action(detail=False, methods=['patch'])
+    def update_item(self, request):
+        product_id = request.data.get('product_id')
+        quantity = request.data.get('quantity')
+        cart = CartService.update_quantity(request.user, product_id, quantity)
+        return Response(CartSerializer(cart).data)
+
 
 class OrderViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]

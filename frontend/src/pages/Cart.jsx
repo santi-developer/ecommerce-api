@@ -11,9 +11,23 @@ function Cart(){
         .then(res => setCart(res.data));
     }, []);
 
+    async function handleRemoveItem(productId) {
+    const res = await axiosInstance.delete("/api/orders/cart/remove_item/", {
+        data: { product_id: productId }
+    });
+    setCart(res.data);
+}
+
+    async function handleUpdateQuantity(productId, quantity) {
+        const res = await axiosInstance.patch("/api/orders/cart/update_item/", {
+            product_id: productId,
+            quantity: quantity
+        });
+        setCart(res.data);
+    }
     if (!cart) return <p>Cargando...</p>
 
-    console.log(cart.items[0].product.images);
+
     return (
     <div className="cart-container">
         <h1 className="cart-title">Mi carrito</h1>
@@ -28,8 +42,15 @@ function Cart(){
                         </div>
                         <div className="cart-item-info">
                             <p className="cart-item-name">{item.product.name}</p>
-                            <p className="cart-item-quantity">Cantidad: {item.quantity}</p>
+                            <div className="cart-item-quantity-controls">
+                                <button className="cart-quantity-btn" onClick={() => handleUpdateQuantity(item.product.id, item.quantity - 1)}>-</button>
+                                <span>{item.quantity}</span>
+                                <button className="cart-quantity-btn" onClick={() => handleUpdateQuantity(item.product.id, item.quantity + 1)}>+</button>
+                            </div>
                             <p className="cart-item-subtotal">${item.subtotal}</p>
+                            <button className="cart-remove-button" onClick={() => handleRemoveItem(item.product.id)}>
+                                Eliminar
+                            </button>
                         </div>
                     </div>
                 ))}

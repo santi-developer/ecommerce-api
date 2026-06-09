@@ -25,7 +25,7 @@ function ProductDetail() {
              product_id: product.id, 
              quantity: 1 
         });
-        console.log(data);
+        console.log(response.data);
     }
 
     if (!product) return <p>Cargando...</p>
