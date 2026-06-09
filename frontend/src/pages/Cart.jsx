@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import axiosInstance from "../utils/axiosInstance"
 import "./Cart.css"
 
 function Cart(){
 
     const [cart, setCart] = useState(null);
-
+    const navigate = useNavigate()
     useEffect(()=>{
          axiosInstance.get("/api/orders/cart/")
         .then(res => setCart(res.data));
@@ -58,7 +59,7 @@ function Cart(){
             <div className="cart-summary">
                 <h2>Resumen</h2>
                 <p>Total: <span>${cart.total}</span></p>
-                <button className="cart-checkout-button">Proceder al pago</button>
+                <button className="cart-checkout-button" onClick={() => navigate("/checkout")}>Proceder al pago</button>
             </div>
         </div>
     </div>

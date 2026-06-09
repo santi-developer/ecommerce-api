@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import Navbar from'./components/Navbar'
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import PrivateRoute from './components/PrivateRoute';
+import Orders from './pages/Orders';
 
 function App() {
   
@@ -14,10 +17,12 @@ function App() {
     <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path = "/register/" element = {<Register/>}/>
-        <Route path = "/login/" element = {<Login/>}/>
+        <Route path = "/register" element = {<Register/>}/>
+        <Route path = "/login" element = {<Login/>}/>
         <Route path="/products/:slug" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+        <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+        <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
       </Routes>
     </>
   )
