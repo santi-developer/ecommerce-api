@@ -35,6 +35,20 @@ class CartService:
         CartItem.objects.filter(cart=cart, product_id=product_id).delete()
         return cart
 
+    @staticmethod
+    def update_quantity(user, product_id, quantity):
+        cart = CartService.get_or_create_cart(user)
+        try:
+            item = CartItem.objects.get(cart=cart, product_id=product_id)
+            if quantity <= 0:
+                item.delete()
+            else:
+                item.quantity = quantity
+                item.save()
+        except CartItem.DoesNotExist:
+            raise ValidationError('Item no encontrado en el carrito')
+        return cart
+
 
 class OrderService:
     @staticmethod
