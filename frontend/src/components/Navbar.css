@@ -33,3 +33,15 @@
 .navbar-links a:hover {
     color: #2563eb;
 }
+
+.navbar-cart {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    transition: color 0.2s ease;
+}
+
+.navbar-cart:hover {
+    color: #2563eb;
+}
