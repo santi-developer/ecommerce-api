@@ -9,6 +9,7 @@ import Checkout from './pages/Checkout';
 import PrivateRoute from './components/PrivateRoute';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
+import Payment from './pages/Payment'
 
 function App() {
   
@@ -25,6 +26,7 @@ function App() {
         <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
         <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+        <Route path="/payment/:orderId" element={<PrivateRoute><Payment /></PrivateRoute>} />
       </Routes>
     </>
   )

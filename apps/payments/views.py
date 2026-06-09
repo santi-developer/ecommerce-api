@@ -21,3 +21,9 @@ class PaymentViewSet(viewsets.ViewSet):
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
         PaymentService.handle_webhook(payload, sig_header)
         return Response({'status': 'ok'})
+
+    @action(detail=False, methods=['post'])
+    def confirm(self, request):
+        payment_intent_id = request.data.get('payment_intent_id')
+        payment = PaymentService.confirm_payment(payment_intent_id)
+        return Response({'status': 'ok'})
