@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react"
 import axiosInstance from "../utils/axiosInstance"
+import { useNavigate } from "react-router-dom"
 import "./Orders.css"
 
 function Orders() {
     const [orders, setOrders] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
         axiosInstance.get("/api/orders/")
@@ -27,6 +29,9 @@ function Orders() {
                         <p className="order-address">📍 {order.shipping_address}</p>
                         <p className="order-total">Total: <span>${order.total}</span></p>
                         <p className="order-date">{new Date(order.created_at).toLocaleDateString()}</p>
+                        {order.status === 'pending' && (
+                            <button className="order-pay-btn" onClick={()=> navigate(`/payment/${order.id}`)}>Pagar orden</button>
+                        )}
                     </div>
                 </div>
             ))}

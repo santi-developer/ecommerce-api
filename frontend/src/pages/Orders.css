@@ -100,3 +100,21 @@
     color: #94a3b8;
     margin: 0;
 }
+
+.order-pay-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+.order-pay-btn:hover {
+    background-color: #1d4ed8;
+}

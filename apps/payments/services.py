@@ -15,20 +15,23 @@ class PaymentService:
         except Order.DoesNotExist:
             raise ValidationError('Orden no encontrada')
 
-        if order.status != 'pending':
-            raise ValidationError('Esta orden ya fue procesada')
-
         intent = stripe.PaymentIntent.create(
-            amount=int(order.total * 100),  # Stripe maneja centavos
-            currency='usd',
-            metadata={'order_id': order.id}
+        amount=int(order.total * 100),
+        currency='usd',
+        metadata={'order_id': order.id}
+    )
+
+        payment, created = Payment.objects.get_or_create(
+            order=order,
+            defaults={
+                'stripe_payment_intent': intent.id,
+                'amount': order.total
+            }
         )
 
-        Payment.objects.create(
-            order=order,
-            stripe_payment_intent=intent.id,
-            amount=order.total
-        )
+        if not created:
+            existing_intent = stripe.PaymentIntent.retrieve(payment.stripe_payment_intent)
+            return existing_intent.client_secret
 
         return intent.client_secret
 
