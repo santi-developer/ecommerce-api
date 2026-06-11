@@ -35,7 +35,7 @@ function PaymentForm() {
             await axiosInstance.post("/api/payments/confirm/", {
                 payment_intent_id: paymentIntent.id
             })
-            navigate("/orders")
+            navigate("/payment/success")
         }
     }
 
