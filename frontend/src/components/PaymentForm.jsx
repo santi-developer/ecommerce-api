@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import axiosInstance from "../utils/axiosInstance"
+import "./PaymentForm.css"
 
 function PaymentForm() {
     const stripe = useStripe()
